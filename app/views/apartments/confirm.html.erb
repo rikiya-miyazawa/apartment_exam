@@ -1,0 +1,22 @@
+<h2>登録確認</h2>
+
+<%= form_with(model: @apartment, local: true) do |form| %>
+  <%= form.hidden_field :apartment_name %>
+  <%= form.hidden_field :rent %>
+  <%= form.hidden_field :address %>
+  <%= form.hidden_field :year_old %>
+  <%= form.hidden_field :remarks %>
+
+  <p>物件名: <%= @apartment.apartment_name %></p>
+  <br>
+  <p>賃料: <%= @apartment.rent %></p>
+  <br>
+  <p>住所: <%= @apartment.address %></p>
+  <br>
+  <p>築年数: <%= @apartment.year_old %></p>
+  <br>
+  <p>備考: <%= @apartment.remarks %></p>
+  <br>  
+  <%= form.submit  "登録" %>
+  <%= form.submit "戻る", name: 'back' %>
+<% end %>
