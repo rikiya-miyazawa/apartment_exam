@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_16_023309) do
+ActiveRecord::Schema.define(version: 2022_12_19_022527) do
 
   create_table "apartments", force: :cascade do |t|
     t.string "apartment_name"
@@ -22,4 +22,26 @@ ActiveRecord::Schema.define(version: 2022_12_16_023309) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "station1s", force: :cascade do |t|
+    t.string "train_line1"
+    t.string "station_name1"
+    t.string "minutes_walk1"
+    t.integer "apartment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["apartment_id"], name: "index_station1s_on_apartment_id"
+  end
+
+  create_table "station2s", force: :cascade do |t|
+    t.string "train_line2"
+    t.string "station_name2"
+    t.string "minutes_walk2"
+    t.integer "apartment_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["apartment_id"], name: "index_station2s_on_apartment_id"
+  end
+
+  add_foreign_key "station1s", "apartments"
+  add_foreign_key "station2s", "apartments"
 end
