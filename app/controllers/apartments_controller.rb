@@ -1,5 +1,5 @@
 class ApartmentsController < ApplicationController
-  before_action :set_apartment, only: [:show, :edit, :update, :destroy, ]
+  before_action :set_apartment, only: [:show, :edit, :update, :destroy]
 
   def index
     @apartments = Apartment.all
@@ -7,13 +7,12 @@ class ApartmentsController < ApplicationController
 
   def new
     @apartment = Apartment.new
+    @apartment.stations.build
   end
 
   def create
     @apartment = Apartment.new(apartment_params)
-    if params[:back]
-      render :new
-    elsif @apartment.save
+    if @apartment.save
       redirect_to apartments_path, notice: "物件を登録しました！"
     else
       render :new
@@ -21,9 +20,11 @@ class ApartmentsController < ApplicationController
   end
   
   def show
+    @stations = @apartment.stations
   end
 
   def edit
+    @apartment.stations.build
   end
 
   def update
@@ -39,15 +40,11 @@ class ApartmentsController < ApplicationController
     redirect_to apartments_path, notice: "物件を削除しました！"
   end
 
-  def confirm
-    @apartment = Apartment.new(apartment_params)
-    render :new if @apartment.invalid?
-  end
-
   private
 
   def apartment_params
-    params.require(:apartment).permit(:apartment_name, :rent, :address, :year_old, :remarks)
+    params.require(:apartment).permit(:apartment_name, :rent, :address, :year_old, :remarks, 
+                                      stations_attributes: [:train_line, :station_name, :minutes_walk]) 
   end
 
   def set_apartment
