@@ -39,8 +39,9 @@
     <%= form.text_area :remarks %>
   </div>
   <HR>
+  <% number = 0 %> 
   <%= form.fields_for :stations do | station | %>
-    <h3>最寄り駅1</h3>
+    <h3>最寄り駅<%= number += 1  %></h3>
     <%= station.label :train_line, "路線名" %>
     <br>
     <%= station.text_field :train_line %>
@@ -52,7 +53,6 @@
     <%= station.label :minutes_walk, "徒歩分数" %>
     <br>
     <%= station.text_field :minutes_walk %>
-    <br>
     <br>
     <br>
   <% end %>

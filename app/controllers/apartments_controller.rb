@@ -7,7 +7,7 @@ class ApartmentsController < ApplicationController
 
   def new
     @apartment = Apartment.new
-    @apartment.stations.build
+    2.times {@apartment.stations.build}
   end
 
   def create
@@ -24,7 +24,8 @@ class ApartmentsController < ApplicationController
   end
 
   def edit
-    @apartment.stations.build
+    @stations = @apartment.stations.count
+    @apartment.stations.build #新しく最寄り駅を追加する記述
   end
 
   def update
@@ -44,7 +45,7 @@ class ApartmentsController < ApplicationController
 
   def apartment_params
     params.require(:apartment).permit(:apartment_name, :rent, :address, :year_old, :remarks, 
-                                      stations_attributes: [:train_line, :station_name, :minutes_walk]) 
+                                      stations_attributes: [:id, :train_line, :station_name, :minutes_walk]) 
   end
 
   def set_apartment
