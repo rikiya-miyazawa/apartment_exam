@@ -1,5 +1,5 @@
 class ApartmentsController < ApplicationController
-  before_action :set_apartment, only: [:show, :edit, :update, :destroy]
+  before_action :set_apartment, only: %i(show edit update destroy)
 
   def index
     @apartments = Apartment.all
@@ -38,14 +38,14 @@ class ApartmentsController < ApplicationController
 
   def destroy
     @apartment.destroy
-    redirect_to apartments_path, notice: "物件を削除しました！"
+    redirect_to action: 'index'
   end
 
   private
 
   def apartment_params
     params.require(:apartment).permit(:apartment_name, :rent, :address, :year_old, :remarks, 
-                                      stations_attributes: [:id, :train_line, :station_name, :minutes_walk]) 
+                                      stations_attributes: %i(id train_line station_name minutes_walk)) 
   end
 
   def set_apartment
