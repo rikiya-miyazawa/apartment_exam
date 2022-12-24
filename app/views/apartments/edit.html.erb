@@ -1,0 +1,63 @@
+<%= form_with(model: @apartment, local: true) do |form| %>
+
+  <% if @apartment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @apartment.errors.count %>件のエラーがあります。</h2>
+      <ul>
+
+      <% @apartment.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <h1>物件編集</h1>
+  <div class="apartment_name">
+    <%= form.label :"物件名" %>
+    <br>
+    <%= form.text_field :apartment_name %>
+  </div>
+  <div class="apartment_rent">
+    <%= form.label :"賃料" %>
+    <br>
+    <%= form.text_field :rent %>
+  </div>
+  <div class="apartment_address">
+    <%= form.label :"住所" %>
+    <br>
+    <%= form.text_field :address %>
+  </div>
+  <div class="apartment_year_old">
+    <%= form.label :"築年数" %>
+    <br>
+    <%= form.text_field :year_old %>
+  </div>
+  <div class="apartment_remarks">
+    <%= form.label :"備考" %>
+    <br>
+    <%= form.text_area :remarks %>
+  </div>
+  <HR>
+  <% number = 0 %> 
+  <%= form.fields_for :stations do | station | %>
+    <h3>最寄り駅<%= number += 1  %></h3>
+    <%= station.label :train_line, "路線名" %>
+    <br>
+    <%= station.text_field :train_line %>
+    <br>
+    <%= station.label :station_name, "駅名" %>
+    <br>
+    <%= station.text_field :station_name %>
+    <br>
+    <%= station.label :minutes_walk, "徒歩分数" %>
+    <br>
+    <%= station.text_field :minutes_walk %>
+    <br>
+    <br>
+  <% end %>
+  <%= form.submit "更新する"%>
+<% end %>
+<br>
+<%= link_to '戻る', apartments_path %>
+
